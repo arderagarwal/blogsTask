@@ -3,6 +3,7 @@ require('./db/mongoose')
 const User = require('./db/models/users')
 const userRouter = require('./routes/user')
 const adminRouter = require('./routes/admin')
+const blogRouter = require('./routes/blog')
 
 const app = express()
 const port = process.env.PORT || 8080
@@ -13,6 +14,7 @@ app.get('',(req,res)=>{
 })
 app.use(userRouter)
 app.use(adminRouter)
+app.use(blogRouter)
 
 app.listen(port, ()=>{
     console.log("We are live at "+port)
