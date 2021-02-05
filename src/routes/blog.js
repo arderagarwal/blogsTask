@@ -36,5 +36,31 @@ router.get('/blogs/:id',async(req,res)=>{
     }
 })
 
+router.patch('/blogs/:id', auth , async(req,res)=>{
+    const updates = Object.keys(req.body)
+    try{
+        const blog = await Blog.findOne({_id:req.params.id,author : req.user._id})
+        if(!blog){
+            res.status(404).send("Blog not found")
+        }
+        updates.forEach((update)=> blog[update]=req.body[update])
+        await blog.save()
+        res.send(blog)
+    }catch(err){
+        res.status(400).send("Bad Request")
+    }
+})
+
+router.delete('/blogs/:id', auth , async(req,res)=>{
+    try{
+        const blog = await Blog.findOneAndDelete({_id:req.params.id,author : req.user._id})
+        if(!blog){
+            res.status(404).send("Not Found")
+        }
+        res.send(blog)
+    }catch(err){
+        res.status(500).send("Internal Server Error")
+    }
+})
 
 module.exports = router
