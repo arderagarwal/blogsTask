@@ -13,6 +13,12 @@ const userSchema = new mongoose.Schema({
         required : true
     }
 })
+userSchema.virtual('blogs',{
+    ref: 'Blog',
+    localField : '_id',
+    foreignField : 'author'
+})
+
 userSchema.methods.generateAuthToken = async function(){
     const user = this
     const token = jwt.sign({_id:user._id.toString()},"randomSecret")
