@@ -13,5 +13,14 @@ router.post('/users', async (req,res)=>{
         res.status(400).send(err)
     }
 })
+router.post('/users/login', async(req,res)=>{
+    try{
+        const user = await User.findByCredentials(req.body.userName,req.body.password)
+        const token = await user.generateAuthToken()
+        res.status(200).send({user,token})
+    }catch(err){
+        res.status(400).send("Invalid Credentials")
+    }
+})
 
 module.exports = router
