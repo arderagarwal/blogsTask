@@ -19,7 +19,7 @@ router.post('/users/login', async(req,res)=>{
         const token = await user.generateAuthToken()
         res.status(200).send({user,token})
     }catch(err){
-        res.status(400).send("Invalid Credentials")
+        res.status(403).send({error : "Invalid Credentials"})
     }
 })
 
