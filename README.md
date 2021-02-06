@@ -4,7 +4,7 @@
   * git clone https://github.com/arderagarwal/blogsTask
 * Open the directory
 * Resolve dependencies 
-  * npm start
+  * npm install
 * Start mongo server on port 27017
 * Start server
   * node src/index
